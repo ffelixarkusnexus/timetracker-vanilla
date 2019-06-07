@@ -44,51 +44,57 @@ if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] > 0) {
 
     // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $validator = new FormFieldValidator();
-        foreach ($postedFieldKeys as $postedFieldKey) {
-            $formFields[$postedFieldKey] = (!empty($_POST[$postedFieldKey]) ? $_POST[$postedFieldKey] : "");
-        }
+        if (!empty($_POST['token'])) {
+            if (hash_equals($token, $_POST['token'])) {
+                $validator = new FormFieldValidator();
+                foreach ($postedFieldKeys as $postedFieldKey) {
+                    $formFields[$postedFieldKey] = (!empty($_POST[$postedFieldKey]) ? $_POST[$postedFieldKey] : "");
+                }
 
-        // Is the user attempting to change the email?
-        if (!empty($_POST["email"]) && ($_POST["email"] != $userRow["email"])) {
-            // Check if the email exists already
-            $sql = "SELECT `id` FROM `users` WHERE `email` = ?";
-            $stmt = $database->prepare($sql);
-            $stmt->execute([$_POST["email"]]);
-            $userWithSameEmail = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($userWithSameEmail) {
-                $warnings[] = $validator::ERROR_MESSAGE_DUPLICATED_EMAIL;
-                $formFields["email"] = $userRow["email"];
-            }
-            if (($userRow["email"] != $formFields["email"]) && !$validator->validEmail($formFields["email"])) {
-                $warnings[] = $validator::ERROR_MESSAGE_VALID_EMAIL;
-            }
-        }
+                // Is the user attempting to change the email?
+                if (!empty($_POST["email"]) && ($_POST["email"] != $userRow["email"])) {
+                    // Check if the email exists already
+                    $sql = "SELECT `id` FROM `users` WHERE `email` = ?";
+                    $stmt = $database->prepare($sql);
+                    $stmt->execute([$_POST["email"]]);
+                    $userWithSameEmail = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if ($userWithSameEmail) {
+                        $warnings[] = $validator::ERROR_MESSAGE_DUPLICATED_EMAIL;
+                        $formFields["email"] = $userRow["email"];
+                    }
+                    if (($userRow["email"] != $formFields["email"]) && !$validator->validEmail($formFields["email"])) {
+                        $warnings[] = $validator::ERROR_MESSAGE_VALID_EMAIL;
+                    }
+                }
 
-        if ((!empty($formFields["password"])) && !$validator->validPassword($formFields["password"])) {
-            $warnings[] = $validator::ERROR_MESSAGE_VALID_PASSWORD;
-            $formFields["password"] = "";
-        }
+                if ((!empty($formFields["password"])) && !$validator->validPassword($formFields["password"])) {
+                    $warnings[] = $validator::ERROR_MESSAGE_VALID_PASSWORD;
+                    $formFields["password"] = "";
+                }
 
 
 
-        if (count($warnings) == 0) {
-            // Did the user changed the password
-            if (!empty($formFields["password"])) {
-                $hashedPassword = password_hash($formFields["password"], PASSWORD_BCRYPT, ['cost' => 12]);
-            } else {
-                $hashedPassword = $userRow["password"];
-            }
-            $sql = "UPDATE `$config->DatabaseName`.`users` SET `name` = ?, `email` = ?, `password` = ?, `start_time_hour` = ?,
+                if (count($warnings) == 0) {
+                    // Did the user changed the password
+                    if (!empty($formFields["password"])) {
+                        $hashedPassword = password_hash($formFields["password"], PASSWORD_BCRYPT, ['cost' => 12]);
+                    } else {
+                        $hashedPassword = $userRow["password"];
+                    }
+                    $sql = "UPDATE `$config->DatabaseName`.`users` SET `name` = ?, `email` = ?, `password` = ?, `start_time_hour` = ?,
                       `start_time_minute` = ?, `start_time_meridiem` = ?, `end_time_hour` = ?, `end_time_minute` = ?, `end_time_meridiem` = ?,
                        `timezone` = ? WHERE `id` = ?";
 
-            $stmt = $database->prepare($sql);
-            $stmt->execute([$formFields["name"], $formFields["email"], $hashedPassword, $formFields["start_time_hour"],
-                $formFields["start_time_minute"], $formFields["start_time_meridiem"], $formFields["end_time_hour"],
-                $formFields["end_time_minute"], $formFields["end_time_meridiem"], $formFields["timezone"], $userRow["id"]]);
-            $_SESSION["user_email"] = $formFields["email"];
-            $formFields["id"] = $userRow["id"];
+                    $stmt = $database->prepare($sql);
+                    $stmt->execute([$formFields["name"], $formFields["email"], $hashedPassword, $formFields["start_time_hour"],
+                        $formFields["start_time_minute"], $formFields["start_time_meridiem"], $formFields["end_time_hour"],
+                        $formFields["end_time_minute"], $formFields["end_time_meridiem"], $formFields["timezone"], $userRow["id"]]);
+                    $_SESSION["user_email"] = $formFields["email"];
+                    $formFields["id"] = $userRow["id"];
+                }
+            } else {
+                // TODO: Log attempt
+            }
         }
     } else {
         $formFields = $userRow;
@@ -99,6 +105,7 @@ echo $twig->render('settings.html',
     [
         'email' => $email,
         'user_id' => $_SESSION["user_id"],
+        'token' => $token,
         'user' => $formFields,
         'timezones' => $timezones,
         'pageData' => $pageData,

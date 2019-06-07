@@ -25,6 +25,7 @@
 
         <p>{{ pageData.message }}</p>
         <form action="" method="post">
+            <input type="hidden" name="token" value="{{ token }}" />
         <span class="help-block">
             <ul>
                 {% for key, warning in warnings %}
