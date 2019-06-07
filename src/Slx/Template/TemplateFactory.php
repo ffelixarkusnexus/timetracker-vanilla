@@ -1,7 +1,7 @@
 <?php
-namespace Slixa\Template;
-use Slixa\Contract\FactoryInterface;
-use Slixa\Config\ConfigFactory;
+namespace Slx\Template;
+use Slx\Contract\FactoryInterface;
+use Slx\Config\ConfigFactory;
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 

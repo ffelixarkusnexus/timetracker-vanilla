@@ -1,5 +1,5 @@
 <?php
-namespace Slixa\Contract;
+namespace Slx\Contract;
 interface FactoryInterface
 {
     public static function getInstance($type);

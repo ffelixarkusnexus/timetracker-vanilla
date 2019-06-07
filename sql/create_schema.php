@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-use Slixa\Database\DatabaseFactory;
+use Slx\Database\DatabaseFactory;
 
 /*
  * IMPORTANT: Before running this script you need to have the database and the username created. Use the following

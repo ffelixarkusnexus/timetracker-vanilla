@@ -2,9 +2,9 @@
 session_start();
 require '../vendor/autoload.php';
 
-use Slixa\Config\ConfigFactory;
-use Slixa\Database\DatabaseFactory;
-use Slixa\Template\TemplateFactory;
+use Slx\Config\ConfigFactory;
+use Slx\Database\DatabaseFactory;
+use Slx\Template\TemplateFactory;
 use Carbon\Carbon;
 
 $config = ConfigFactory::getInstance("dotenv");

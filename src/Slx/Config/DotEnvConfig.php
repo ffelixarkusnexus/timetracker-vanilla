@@ -1,5 +1,5 @@
 <?php
-namespace Slixa\Config;
+namespace Slx\Config;
 use Dotenv\Dotenv;
 class DotEnvConfig
 {

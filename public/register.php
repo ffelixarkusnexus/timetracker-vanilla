@@ -2,11 +2,11 @@
 require 'inc.session_cfg.php';
 require '../vendor/autoload.php';
 
-use Slixa\Config\ConfigFactory;
-use Slixa\Database\DatabaseFactory;
-use Slixa\Template\TemplateFactory;
-use Slixa\Model\User;
-use Slixa\Validator\FormFieldValidator;
+use Slx\Config\ConfigFactory;
+use Slx\Database\DatabaseFactory;
+use Slx\Template\TemplateFactory;
+use Slx\Model\User;
+use Slx\Validator\FormFieldValidator;
 
 $config = ConfigFactory::getInstance("dotenv");
 $database = DatabaseFactory::getInstance("pdo");

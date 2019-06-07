@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-use Slixa\Database\DatabaseFactory;
+use Slx\Database\DatabaseFactory;
 
 $database = DatabaseFactory::getInstance("pdo");
 $databaseName = "timetracker_vanilla";

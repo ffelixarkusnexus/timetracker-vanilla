@@ -1,8 +1,8 @@
 <?php
 
-namespace Slixa\Config;
+namespace Slx\Config;
 
-use Slixa\Contract\FactoryInterface;
+use Slx\Contract\FactoryInterface;
 
 class ConfigFactory implements FactoryInterface
 {

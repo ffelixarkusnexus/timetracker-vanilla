@@ -1,6 +1,6 @@
 <?php
 
-namespace Slixa\Validator;
+namespace Slx\Validator;
 
 class FormFieldValidator {
     const PASSWORD_MINIMUM_LENGHT = 8;

@@ -1,7 +1,7 @@
 <?php
-namespace Slixa\Database;
-use Slixa\Contract\FactoryInterface;
-use Slixa\Config\ConfigFactory;
+namespace Slx\Database;
+use Slx\Contract\FactoryInterface;
+use Slx\Config\ConfigFactory;
 class DatabaseFactory implements FactoryInterface
 {
     static $databases = array();
