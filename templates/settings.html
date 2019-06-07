@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            font: 14px sans-serif;
+        }
+
+        .wrapper {
+            width: 550px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    {% include 'navbar.html' %}
+
+    <div class="wrapper">
+        <h2>{{ pageData.header }}</h2>
+
+        <p>{{ pageData.message }}</p>
+        <form action="" method="post">
+        <span class="help-block">
+            <ul>
+                {% for key, warning in warnings %}
+                    <li>{{ warning }}</li>
+                {% endfor %}
+            </ul>
+            <ul>
+            </ul>
+        </span>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" value="{{ user.name }}">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" name="email" class="form-control" value="{{ user.email }}">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="start_time_hour">Start Time Hour</label>
+                <select name="start_time_hour" class="custom-select d-block w-100" id="start_time_hour" required="">
+                    <option value="">Choose...</option>
+                    {% for i in 1..12 %}
+                    <option value="{{ i }}" {% if user.start_time_hour == i %} selected {% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="start_time_minute">Start Time Minute</label>
+                <select name="start_time_minute" class="custom-select d-block w-100" id="start_time_minute" required="">
+                    <option value="">Choose...</option>
+                    {% for i in 1..60 %}
+                    <option value="{{ i }}" {% if user.start_time_minute == i %} selected {% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="start_time_meridiem">Start Time Meridiem</label>
+                <select name="start_time_meridiem" class="custom-select d-block w-100" id="start_time_meridiem" required="">
+                    <option value="">Choose...</option>
+                    <option {% if user.start_time_meridiem == "AM" %} selected {% endif %}>AM</option>
+                    <option {% if user.start_time_meridiem == "PM" %} selected {% endif %}>PM</option>
+                </select>
+            </div>
+        </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="end_time_hour">End Time Hour</label>
+                    <select name="end_time_hour" class="custom-select d-block w-100" id="end_time_hour" required="">
+                        <option value="">Choose...</option>
+                        {% for i in 1..12 %}
+                        <option value="{{ i }}" {% if user.end_time_hour == i %} selected {% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="end_time_minute">End Time Minute</label>
+                    <select name="end_time_minute" class="custom-select d-block w-100" id="end_time_minute" required="">
+                        <option value="">Choose...</option>
+                        {% for i in 1..60 %}
+                        <option value="{{ i }}" {% if user.end_time_minute == i %} selected {% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="end_time_meridiem">End Time Meridiem</label>
+                    <select name="end_time_meridiem" class="custom-select d-block w-100" id="end_time_meridiem" required="">
+                        <option value="">Choose...</option>
+                        <option {% if user.end_time_meridiem == "AM" %} selected {% endif %}>AM</option>
+                        <option {% if user.end_time_meridiem == "PM" %} selected {% endif %}>PM</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">Timezone</label>
+                <select name="timezone" class="custom-select d-block w-100" id="timezone" required="">
+                    <option value="">Choose...</option>
+                    {% for timezone in timezones %}
+                    <option value="{{ timezone.id }}" {% if user.timezone == timezone.id %} selected {% endif %}>{{ timezone.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="{{ pageData.submit_btn }}">
+            <input type="reset" class="btn btn-primary" value="Reset">
+
+            {% if pageData.tag == 'login' %}
+            <p>Don't have an account? <a href="register.php">Register now</a>.</p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+</body>
+</html>

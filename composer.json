@@ -1,0 +1,19 @@
+{
+    "name": "desveladisimo/timetracker-vanilla",
+    "authors": [
+        {
+            "name": "Francisco Felix",
+            "email": "ffelix@desveladisimo.com"
+        }
+    ],
+    "require": {
+        "nesbot/carbon": "^2.19",
+        "vlucas/phpdotenv": "^3.3",
+        "twig/twig": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Slixa\\": "src/Slixa/"
+        }
+    }
+}

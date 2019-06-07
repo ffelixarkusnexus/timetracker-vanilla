@@ -1,0 +1,9 @@
+### Configuration ###
+.env
+
+### Composer ###
+/vendor/
+
+### IDEs ###
+*.iml
+.idea/
