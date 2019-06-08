@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style type="text/css">
-        body {
-            font: 14px sans-serif;
-        }
-
-        .wrapper {
-            width: 350px;
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./css/default.css">
 </head>
 <body>
 <div class="container">
 
     {% include 'navbar.html' %}
-
-    <div class="wrapper">
-        <h2>Welcome</h2>
+    <h2>Welcome</h2>
+    {% for key, user in users %}
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            {{ user.name }}
+        </div>
+        <div class="column-r" style="background-color:#bbb;">
+            {{ user.formula }}<br>
+            Start: {{ user.start_time_hour }} {{ user.start_time_minute }} {{ user.start_time_meridiem }}<br>
+            End:   {{ user.end_time_hour }} {{ user.end_time_minute }} {{ user.end_time_meridiem }}<br>
+            {{ user.timezone_name }}<br>
+            Start user timezone: {{ user.start_date_user_time_zone }}<br>
+            End user timezone: {{ user.end_date_user_time_zone }}<br>
+        </div>
+        <div class="column" style="background-color:#ccc;">
+        </div>
+        <div class="column" style="background-color:#ddd;">
+        </div>
     </div>
+    {% endfor %}
 </div>
 </body>
 </html>

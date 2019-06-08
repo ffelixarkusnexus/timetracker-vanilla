@@ -1,0 +1,70 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	font-family: 'Arial', sans-serif; 
+	font-size: 16px;
+}
+
+.tz-container {
+	width: 1024px;
+	margin: 0 auto;
+}
+
+.tz-header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: solid 1px #eee;
+}
+
+.tz-section {
+	margin-bottom: 20px;
+}
+
+.tz-heading {
+	margin: 0;
+	font-size: 32px
+}
+
+.tz-list-nav {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: right;
+}
+
+.tz-list-nav li {
+	display: inline-block;
+	padding: 0 4px;
+}
+
+.tz-bar::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.tz-half-bar {
+	float: left; 
+	width: 50%;
+}
+
+.tz-user {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	line-height: 40px;
+	padding-left: 10%;
+}
+
+.tz-slider {
+	width: 0%;
+	height: 40px;
+	float: right;
+	margin-left: 0%;
+	margin-right: 0%;
+	background: gray;
+}
